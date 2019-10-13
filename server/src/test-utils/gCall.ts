@@ -7,6 +7,7 @@ interface Options {
   variableValues?: Maybe<{
     [key: string]: any;
   }>;
+  userId?: number;
 }
 
 let schema: GraphQLSchema;
@@ -19,6 +20,12 @@ export const gCall = async ({ source, variableValues }: Options) => {
   return graphql({
     schema,
     source,
-    variableValues
+    variableValues,
+    contextValue: {
+      req: {},
+      res: {
+        cookie: jest.fn()
+      }
+    }
   });
 };

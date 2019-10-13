@@ -1,3 +1,4 @@
+import "dotenv/config";
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
 import Express from "express";
@@ -9,7 +10,10 @@ const server = async () => {
 
   const schema = await createSchema();
 
-  const apolloServer = new ApolloServer({ schema });
+  const apolloServer = new ApolloServer({
+    schema,
+    context: ({ req, res }) => ({ req, res })
+  });
 
   const app = Express();
 

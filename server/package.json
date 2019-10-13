@@ -5,20 +5,31 @@
     "license": "MIT",
     "dependencies": {
         "apollo-server-express": "^2.9.6",
+        "bcryptjs": "^2.4.3",
+        "class-validator": "^0.10.1",
         "express": "^4.17.1",
         "graphql": "^14.5.8",
+        "pg": "^7.12.1",
         "reflect-metadata": "^0.1.13",
-        "type-graphql": "^0.17.5"
+        "type-graphql": "^0.17.5",
+        "typeorm": "^0.2.19"
     },
     "devDependencies": {
+        "@types/bcryptjs": "^2.4.2",
         "@types/express": "^4.17.1",
         "@types/graphql": "^14.5.0",
+        "@types/jest": "^24.0.18",
         "@types/node": "^12.7.12",
+        "jest": "^24.9.0",
         "nodemon": "^1.19.3",
+        "ts-jest": "^24.1.0",
         "ts-node": "^8.4.1",
+        "ts-node-dev": "^1.0.0-pre.43",
         "typescript": "^3.6.4"
     },
     "scripts": {
-        "start": "nodemon --exec ts-node src/index.ts"
+        "start": "ts-node-dev --respawn src/index.ts",
+        "db:setup": "ts-node ./src/test-utils/setup.ts",
+        "test": "npm run db:setup && jest"
     }
 }

@@ -1,4 +1,11 @@
-import { Resolver, Mutation, Arg, Ctx } from "type-graphql";
+import {
+  Resolver,
+  Mutation,
+  Arg,
+  Ctx,
+  Query,
+  UseMiddleware
+} from "type-graphql";
 import { LoginInputType } from "./LoginInputType";
 import { User } from "./../../../entity/User";
 import { compare } from "bcryptjs";
@@ -8,9 +15,16 @@ import {
   createRefreshToken,
   createAccessToken
 } from "../../../utils/createTokens";
+import { isAuth } from "../../middlewares/isAuth";
 
 @Resolver()
 export class LoginResolver {
+  @Query(() => String)
+  @UseMiddleware(isAuth)
+  me(@Ctx() { payload }: MyContext) {
+    return `${payload!.userId}`;
+  }
+
   @Mutation(() => LoginResponse)
   async login(
     @Arg("data") loginInput: LoginInputType,

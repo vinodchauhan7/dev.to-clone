@@ -1,4 +1,4 @@
-import { Resolver, Mutation, Arg, Int } from "type-graphql";
+import { Resolver, Mutation, Arg, Int, Query } from "type-graphql";
 import { getConnection } from "typeorm";
 import { User } from "../../../entity/User";
 
@@ -11,5 +11,10 @@ export class UserUtilityResolver {
       .increment({ id: userId }, "tokenVersion", 1);
 
     return true;
+  }
+
+  @Query(() => String)
+  async hello() {
+    return "Hello1!!!";
   }
 }

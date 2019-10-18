@@ -2,6 +2,7 @@ import "dotenv/config";
 import "reflect-metadata";
 import { ApolloServer } from "apollo-server-express";
 import Express from "express";
+import cors from "cors";
 import { createConnection } from "typeorm";
 import { createSchema } from "./utils/createSchema";
 import cookieParser from "cookie-parser";
@@ -20,7 +21,12 @@ const server = async () => {
   });
 
   const app = Express();
-
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true
+    })
+  );
   app.use(cookieParser());
 
   app.post("/refresh_token", async (req, res) => {
@@ -58,7 +64,7 @@ const server = async () => {
     return res.send({ ok: true, accessToken: createAccessToken(user) });
   });
 
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, cors: false });
 
   app.listen(4000, () => {
     console.log("Dev.to server started on localhost:4000/graphql");

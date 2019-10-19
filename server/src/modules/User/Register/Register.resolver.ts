@@ -18,6 +18,7 @@ export class RegisterResolver {
     const hashedPassword = await bcrypt.hash(registerInput.password, 13);
     registerInput.password = hashedPassword;
     const user = await User.create(registerInput).save();
+
     return user;
   }
 }

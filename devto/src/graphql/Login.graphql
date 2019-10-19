@@ -1,0 +1,5 @@
+mutation Login($data: LoginInputType!) {
+  login(data: $data) {
+    accessToken
+  }
+}

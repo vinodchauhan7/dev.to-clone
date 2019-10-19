@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { RowStyle, ColStyle } from "../../../ui_components/RowColStyle";
 
 const Input = styled.input`
   justify-content: left;

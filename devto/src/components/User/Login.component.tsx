@@ -6,17 +6,16 @@ import { Col } from "react-bootstrap";
 import { ReactComponent as DevSvg } from "./../../svg/devSvg.svg";
 import styled from "styled-components";
 import * as Yup from "yup";
-import { useRegisterMutation, useMeQuery } from "../../generated/graphql";
 import { RouteComponentProps } from "react-router-dom";
+import { useLoginMutation, useMeQuery } from "../../generated/graphql";
+import { setAccessToken, getAccessToken } from "./../../utils/accessToken";
 
 interface FormValues {
   email: string;
   password: string;
-  name: string;
 }
 
-interface MyFormValues {
-  initialName?: string;
+interface MyFormProps {
   initialEmail?: string;
   initialPassword?: string;
 }
@@ -51,23 +50,22 @@ const Wrapper = styled.div`
   }
 `;
 
-const RegisterForm = (props: FormikProps<FormValues>) => {
+const LoginForm = (props: FormikProps<FormValues>) => {
   const {
     values,
-    touched,
     errors,
+    touched,
     handleChange,
     handleBlur,
     handleSubmit,
     isSubmitting
   } = props;
-
   return (
     <>
       <RowStyle>
         <Col>
           <ShowSvg>
-            <DevSvg></DevSvg>
+            <DevSvg />
           </ShowSvg>
         </Col>
       </RowStyle>
@@ -75,24 +73,13 @@ const RegisterForm = (props: FormikProps<FormValues>) => {
         <ColStyle>
           <form onSubmit={handleSubmit}>
             <Wrapper>
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                name="name"
-                value={values.name}
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-              {touched.name && errors.name && <div>{errors.name}</div>}
-            </Wrapper>
-            <Wrapper>
               <label htmlFor="email">Email</label>
               <input
                 type="email"
                 name="email"
-                value={values.email}
-                onChange={handleChange}
                 onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.email}
               />
               {touched.email && errors.email && <div>{errors.email}</div>}
             </Wrapper>
@@ -101,9 +88,9 @@ const RegisterForm = (props: FormikProps<FormValues>) => {
               <input
                 type="password"
                 name="password"
-                value={values.password}
-                onChange={handleChange}
                 onBlur={handleBlur}
+                onChange={handleChange}
+                value={values.password}
               />
               {touched.password && errors.password && (
                 <div>{errors.password}</div>
@@ -114,12 +101,11 @@ const RegisterForm = (props: FormikProps<FormValues>) => {
                 type="submit"
                 disabled={
                   isSubmitting ||
-                  !!(errors.name && touched.name) ||
                   !!(errors.email && touched.email) ||
                   !!(errors.password && touched.password)
                 }
               >
-                SignUp
+                Sign In
               </StyledButton>
             </Wrapper>
           </form>
@@ -129,54 +115,46 @@ const RegisterForm = (props: FormikProps<FormValues>) => {
   );
 };
 
-export const RegisterComponent: React.FC<RouteComponentProps> = ({
-  history
-}) => {
-  const [register] = useRegisterMutation();
+export const LoginComponent: React.FC<RouteComponentProps> = ({ history }) => {
+  const [login] = useLoginMutation();
   const { data } = useMeQuery();
 
   if (data) {
     history.push("/");
   }
 
-  const RegisterComponentUser = withFormik<MyFormValues, FormValues>({
+  const LoginComponentUser = withFormik<MyFormProps, FormValues>({
     mapPropsToValues: props => ({
-      name: props.initialName || "",
       email: props.initialEmail || "",
       password: props.initialPassword || ""
     }),
     validationSchema: Yup.object().shape({
-      name: Yup.string()
-        .required("Name is required")
-        .min(5)
-        .max(50),
       email: Yup.string()
         .email("Email is not valid")
         .required("Email is required"),
-      password: Yup.string()
-        .required("Password is required")
-        .min(3)
-        .max(50)
+      password: Yup.string().required("Password is required")
     }),
-    async handleSubmit({ name, email, password }: FormValues) {
-      let date_ob = new Date();
-      const joinedDate = date_ob.getMonth() + " " + date_ob.getFullYear();
-      console.log(name + " - " + email + " - " + password + " - " + joinedDate);
-      const response = await register({
+    async handleSubmit({ email, password }: FormValues) {
+      console.log(email, password);
+
+      const response = await login({
         variables: {
           data: {
-            name: name,
-            email: email,
-            password: password,
-            joinedDate: joinedDate
+            email,
+            password
           }
         }
       });
 
-      console.log(JSON.stringify(response, null, 2));
-      history.push("/login");
-    }
-  })(RegisterForm);
+      console.log(response);
+      if (response && response.data) {
+        setAccessToken(response.data.login.accessToken);
+      }
 
-  return <RegisterComponentUser></RegisterComponentUser>;
+      console.log(getAccessToken());
+      window.location.reload();
+    }
+  })(LoginForm);
+
+  return <LoginComponentUser></LoginComponentUser>;
 };

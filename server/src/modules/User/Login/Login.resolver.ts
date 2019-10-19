@@ -19,10 +19,11 @@ import { isAuth } from "../../middlewares/isAuth";
 
 @Resolver()
 export class LoginResolver {
-  @Query(() => String)
+  @Query(() => User)
   @UseMiddleware(isAuth)
-  me(@Ctx() { payload }: MyContext) {
-    return `${payload!.userId}`;
+  async me(@Ctx() { payload }: MyContext) {
+    const user = await User.findOne(payload!.userId);
+    return user;
   }
 
   @Mutation(() => LoginResponse)

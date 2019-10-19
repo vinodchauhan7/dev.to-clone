@@ -10,11 +10,18 @@ export const HeaderComponent: React.FC = () => {
     background: rgb(249, 242, 255);
   `;
 
+  const AnchorTag = styled.a`
+    text-decoration: none !important;
+    cursor: normal;
+  `;
+
   return (
     <>
       <RowStyles>
         <ColStyle md={2}>
-          <DevLogo></DevLogo>
+          <AnchorTag href="/">
+            <DevLogo></DevLogo>
+          </AnchorTag>
         </ColStyle>
         <ColStyle md={5}>
           <SearchBar></SearchBar>

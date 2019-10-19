@@ -3,9 +3,11 @@ import { RowStyle } from "./../../../ui_components/RowColStyle";
 import styled from "styled-components";
 import { ReactComponent as ConnnectSvg } from "./../../../svg/connect.svg";
 import { ReactComponent as NotificationSvg } from "./../../../svg/notification.svg";
-import { Nav, NavDropdown, Col } from "react-bootstrap";
+import { Col } from "react-bootstrap";
+import { useMeQuery } from "../../../generated/graphql";
 
 export const RightHeader: React.FC = () => {
+  const { data, loading } = useMeQuery();
   const WritePost = styled.a`
     width: 118px;
     display: block;
@@ -80,6 +82,29 @@ export const RightHeader: React.FC = () => {
     }
   `;
 
+  let options: any = null;
+
+  if (loading || !data) {
+    options = (
+      <>
+        <a href="login">SignIn</a>
+        <a href="register">SignUp</a>
+      </>
+    );
+  }
+
+  if (data) {
+    options = (
+      <>
+        <a href="/userDetails">@{data.me.name}</a>
+        <a href="#">DashBoard</a>
+        <a href="#">Write A Post</a>
+        <a href="#">Reading List</a>
+        <a href="#">Sign Out</a>
+      </>
+    );
+  }
+
   return (
     <>
       <RowStyle>
@@ -99,13 +124,7 @@ export const RightHeader: React.FC = () => {
         <ColStyle md={5}>
           <DropDownDiv>
             <button className="dropbtn">D</button>
-            <div className="dropdown-content">
-              <a href="#">@UserName</a>
-              <a href="#">DashBoard</a>
-              <a href="#">Write A Post</a>
-              <a href="#">Reading List</a>
-              <a href="#">Sign Out</a>
-            </div>
+            <div className="dropdown-content">{options}</div>
           </DropDownDiv>
         </ColStyle>
       </RowStyle>

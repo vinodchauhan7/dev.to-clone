@@ -49,7 +49,8 @@ export class LoginResolver {
     });
 
     return {
-      accessToken: createAccessToken(user)
+      accessToken: createAccessToken(user),
+      user
     };
   }
 }

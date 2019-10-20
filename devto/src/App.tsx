@@ -5,6 +5,7 @@ import { GlobalStyle } from "./ui_components/GlobalStyle";
 import { ColStyle, RowStyle } from "./ui_components/RowColStyle";
 import { RegisterComponent } from "./components/User/Register.component";
 import { LoginComponent } from "./components/User/Login.component";
+import { LogoutComponent } from "./components/User/Logout.component";
 import { setAccessToken } from "./utils/accessToken";
 const App: React.FC = () => {
   const [loading, setLoading] = React.useState(true);
@@ -40,6 +41,7 @@ const App: React.FC = () => {
               <Route exact path="/" render={() => <div>Hello</div>} />
               <Route exact path="/register" component={RegisterComponent} />
               <Route exact path="/login" component={LoginComponent} />
+              <Route exact path="/logout" component={LogoutComponent} />
             </Switch>
           </Router>
         </ColStyle>

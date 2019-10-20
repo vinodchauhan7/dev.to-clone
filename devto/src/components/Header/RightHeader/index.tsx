@@ -100,7 +100,7 @@ export const RightHeader: React.FC = () => {
         <a href="#">DashBoard</a>
         <a href="#">Write A Post</a>
         <a href="#">Reading List</a>
-        <a href="#">Sign Out</a>
+        <a href="/logout">Sign Out</a>
       </>
     );
   }

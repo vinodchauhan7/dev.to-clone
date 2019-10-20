@@ -1,6 +1,7 @@
-import { Resolver, Mutation, Arg, Int, Query } from "type-graphql";
+import { Resolver, Mutation, Arg, Int, Query, Ctx } from "type-graphql";
 import { getConnection } from "typeorm";
 import { User } from "../../../entity/User";
+import { MyContext } from "../../../utils/MyContext";
 
 @Resolver()
 export class UserUtilityResolver {
@@ -16,5 +17,13 @@ export class UserUtilityResolver {
   @Query(() => String)
   async hello() {
     return "Hello1!!!";
+  }
+
+  @Mutation(() => Boolean)
+  logout(@Ctx() { res }: MyContext) {
+    res.cookie("devId", "", {
+      httpOnly: true
+    });
+    return true;
   }
 }

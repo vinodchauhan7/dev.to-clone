@@ -7,7 +7,12 @@ import { ReactComponent as DevSvg } from "./../../svg/devSvg.svg";
 import styled from "styled-components";
 import * as Yup from "yup";
 import { RouteComponentProps } from "react-router-dom";
-import { useLoginMutation, useMeQuery } from "../../generated/graphql";
+import {
+  useLoginMutation,
+  useMeQuery,
+  MeQuery,
+  MeDocument
+} from "../../generated/graphql";
 import { setAccessToken, getAccessToken } from "./../../utils/accessToken";
 
 interface FormValues {
@@ -143,6 +148,19 @@ export const LoginComponent: React.FC<RouteComponentProps> = ({ history }) => {
             email,
             password
           }
+        },
+        update: (store, { data }) => {
+          //updating cache so that it will not hit again and again
+          if (!data) {
+            return null;
+          }
+          store.writeQuery<MeQuery>({
+            query: MeDocument,
+            data: {
+              __typename: "Query",
+              me: data.login.user
+            }
+          });
         }
       });
 

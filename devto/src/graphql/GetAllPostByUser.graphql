@@ -1,0 +1,13 @@
+query GetAllPostById($userId: Float!) {
+  getAllPostById(userId: $userId) {
+    postId
+    title
+    creationDate
+    tags
+    user {
+      name
+      email
+      id
+    }
+  }
+}

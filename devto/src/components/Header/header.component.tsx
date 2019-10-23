@@ -3,6 +3,7 @@ import { ColStyle, RowStyle } from "../../ui_components/RowColStyle";
 import { DevLogo } from "./../../ui_components/DevLogo";
 import { SearchBar } from "./SearchBar/searchbar.component";
 import { RightHeader } from "./RightHeader/index";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const HeaderComponent: React.FC = () => {
@@ -10,7 +11,7 @@ export const HeaderComponent: React.FC = () => {
     background: rgb(249, 242, 255);
   `;
 
-  const AnchorTag = styled.a`
+  const AnchorTag = styled(NavLink)`
     text-decoration: none !important;
     cursor: normal;
   `;
@@ -19,7 +20,7 @@ export const HeaderComponent: React.FC = () => {
     <>
       <RowStyles>
         <ColStyle md={2}>
-          <AnchorTag href="/">
+          <AnchorTag exact to="/">
             <DevLogo></DevLogo>
           </AnchorTag>
         </ColStyle>

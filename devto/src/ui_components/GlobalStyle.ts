@@ -14,7 +14,7 @@ export const GlobalStyle = createGlobalStyle`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         height: 100%;
-        background: rgb(49,60,72) ;
+        background: white ;
         color : black;
         *:focus{
           outline:0;

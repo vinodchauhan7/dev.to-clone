@@ -1,0 +1,16 @@
+query GetAllPost {
+  getAllPost {
+    title
+    description
+    postId
+    tags
+    creationDate
+    views
+    isPublished
+    user {
+      id
+      name
+      email
+    }
+  }
+}

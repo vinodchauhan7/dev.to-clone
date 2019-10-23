@@ -1,5 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from "typeorm";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  BaseEntity,
+  OneToMany
+} from "typeorm";
 import { ObjectType, Field, ID } from "type-graphql";
+import { Post } from "./Post";
 
 @ObjectType()
 @Entity()
@@ -53,4 +60,8 @@ export class User extends BaseEntity {
 
   @Column("int", { default: 0 })
   tokenVersion: number;
+
+  @OneToMany(() => Post, post => post.user)
+  @Field(() => [Post])
+  posts: Post[];
 }

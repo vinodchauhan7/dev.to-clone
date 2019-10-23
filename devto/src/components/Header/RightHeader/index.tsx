@@ -5,6 +5,7 @@ import { ReactComponent as ConnnectSvg } from "./../../../svg/connect.svg";
 import { ReactComponent as NotificationSvg } from "./../../../svg/notification.svg";
 import { Col } from "react-bootstrap";
 import { useMeQuery } from "../../../generated/graphql";
+import { NavLink, Link } from "react-router-dom";
 
 export const RightHeader: React.FC = () => {
   const { data, loading } = useMeQuery();
@@ -87,8 +88,12 @@ export const RightHeader: React.FC = () => {
   if (loading || !data) {
     options = (
       <>
-        <a href="login">SignIn</a>
-        <a href="register">SignUp</a>
+        <NavLink exact to="/login">
+          SignIn
+        </NavLink>
+        <NavLink exact to="/register">
+          SignUp
+        </NavLink>
       </>
     );
   }
@@ -96,11 +101,17 @@ export const RightHeader: React.FC = () => {
   if (data) {
     options = (
       <>
-        <a href="/userDetails">@{data.me.name}</a>
-        <a href="#">DashBoard</a>
-        <a href="#">Write A Post</a>
+        <Link to={`/userDetails/${data.me.id}`}>@{data.me.name}</Link>
+        <NavLink exact to="/dashboard">
+          DashBoard
+        </NavLink>
+        <NavLink exact to="/newPost">
+          Write A Post
+        </NavLink>
         <a href="#">Reading List</a>
-        <a href="/logout">Sign Out</a>
+        <NavLink exact to="/logout">
+          Sign out
+        </NavLink>
       </>
     );
   }
@@ -109,7 +120,11 @@ export const RightHeader: React.FC = () => {
     <>
       <RowStyle>
         <ColStyle md={3}>
-          <WritePost href="/newPost">WRITE A POST</WritePost>
+          {loading || !data ? (
+            <WritePost href="/login">WRITE A POST</WritePost>
+          ) : (
+            <WritePost href="/newPost">WRITE A POST</WritePost>
+          )}
         </ColStyle>
         <ColStyle md={1}>
           <ShowSvg>

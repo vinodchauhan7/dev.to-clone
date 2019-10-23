@@ -6,6 +6,11 @@ import { ColStyle, RowStyle } from "./ui_components/RowColStyle";
 import { RegisterComponent } from "./components/User/Register.component";
 import { LoginComponent } from "./components/User/Login.component";
 import { LogoutComponent } from "./components/User/Logout.component";
+import { HomeComponent } from "./components/Home/Home.component";
+import { UserDetails } from "./components/User/UserDetails.component";
+import { ViewPost } from "./components/Post/ViewPost";
+import { GetAllPostByUser } from "./components/Post/GetAllPostByUser.component";
+import { WritePost } from "./components/Post/writePost";
 import { setAccessToken } from "./utils/accessToken";
 const App: React.FC = () => {
   const [loading, setLoading] = React.useState(true);
@@ -29,23 +34,31 @@ const App: React.FC = () => {
   return (
     <>
       <GlobalStyle></GlobalStyle>
-      <RowStyle>
-        <ColStyle md={12}>
-          <HeaderComponent />
-        </ColStyle>
-      </RowStyle>
-      <RowStyle>
-        <ColStyle md={12}>
-          <Router>
+      <Router>
+        <RowStyle>
+          <ColStyle md={12}>
+            <HeaderComponent />
+          </ColStyle>
+        </RowStyle>
+        <RowStyle>
+          <ColStyle md={12}>
             <Switch>
-              <Route exact path="/" render={() => <div>Hello</div>} />
+              <Route exact path="/" component={HomeComponent} />
               <Route exact path="/register" component={RegisterComponent} />
               <Route exact path="/login" component={LoginComponent} />
               <Route exact path="/logout" component={LogoutComponent} />
+              <Route
+                exact
+                path="/userDetails/:userId"
+                component={UserDetails}
+              />
+              <Route exact path="/viewPost" component={ViewPost} />
+              <Route exact path="/newPost" component={WritePost} />
+              <Route exact path="/dashboard" component={GetAllPostByUser} />
             </Switch>
-          </Router>
-        </ColStyle>
-      </RowStyle>
+          </ColStyle>
+        </RowStyle>
+      </Router>
     </>
   );
 };

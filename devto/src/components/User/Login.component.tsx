@@ -47,7 +47,6 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  color: white;
 
   label {
     font-size: 12px;
@@ -125,7 +124,7 @@ export const LoginComponent: React.FC<RouteComponentProps> = ({ history }) => {
   const { data } = useMeQuery();
 
   if (data) {
-    history.push("/");
+    //history.push("/");
   }
 
   const LoginComponentUser = withFormik<MyFormProps, FormValues>({
@@ -170,7 +169,7 @@ export const LoginComponent: React.FC<RouteComponentProps> = ({ history }) => {
       }
 
       console.log(getAccessToken());
-      window.location.reload();
+      window.location.replace("http://localhost:3000/");
     }
   })(LoginForm);
 

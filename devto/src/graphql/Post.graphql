@@ -1,0 +1,6 @@
+mutation Post($data: PostInput!) {
+  post(data: $data) {
+    postId
+    title
+  }
+}

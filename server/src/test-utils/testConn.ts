@@ -2,6 +2,7 @@ import "dotenv/config";
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import { User } from "./../entity/User";
+import { Post } from "./../entity/Post";
 
 export const testConn = (drop: boolean = false) => {
   return createConnection({
@@ -14,6 +15,6 @@ export const testConn = (drop: boolean = false) => {
     synchronize: drop,
     dropSchema: drop,
     logging: false,
-    entities: [User]
+    entities: [User, Post]
   });
 };

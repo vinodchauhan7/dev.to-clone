@@ -43,7 +43,6 @@ const Wrapper = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  color: white;
 
   label {
     font-size: 12px;

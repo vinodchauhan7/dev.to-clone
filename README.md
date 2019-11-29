@@ -2,6 +2,6 @@
 Trying dev.to clone in react-node via typescript
 
 For Full understanding of this clone please go through the below links :
-[Part-1](https://dev.to/vinodchauhan7/dev-to-clone-using-react-node-via-typescript-typegraphql-typeorm-backend-part-1-kmn)
-[Part-2](https://dev.to/vinodchauhan7/dev-to-clone-using-react-hooks-graphql-codegen-apollo-refresh-token-authentication-middleware-backend-frontend-part-2-28g8)
-[Par-3](https://dev.to/vinodchauhan7/dev-to-clone-using-react-node-apollo-cache-apollo-link-token-refresh-one-2-many-relation-in-typeorm-part-3-4fad)
+[Part-1](https://medium.com/javascript-in-plain-english/dev-to-clone-using-reactjs-nodejs-via-typescript-apollo-using-graphql-orm-environment-part-1-cf83f65e795d)
+[Part-2](https://medium.com/javascript-in-plain-english/dev-to-clone-using-reactjs-nodejs-via-typescript-apollo-using-refreshtoken-authentication-99fa89d567e9)
+[Par-3](https://medium.com/javascript-in-plain-english/dev-to-clone-using-reactjs-nodejs-via-typescript-apollo-using-graphql-orm-environment-part-3-5dd9fdfbb312)

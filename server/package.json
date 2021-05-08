@@ -16,7 +16,7 @@
         "pg": "^7.12.1",
         "reflect-metadata": "^0.1.13",
         "type-graphql": "^0.17.5",
-        "typeorm": "^0.2.19"
+        "typeorm": "^0.2.25"
     },
     "devDependencies": {
         "@types/bcryptjs": "^2.4.2",
